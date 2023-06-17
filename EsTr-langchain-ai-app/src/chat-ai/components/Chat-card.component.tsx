@@ -11,6 +11,7 @@ type ChatCardProps = {
 }
 
 const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, isChatActive, setIsChatActive }: ChatCardProps) => {
+
     const inputRef = useRef<HTMLInputElement | null>(null);
     // inputRef.current?.focus();
 
@@ -31,9 +32,15 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     }
 
     return (
-        <div className={`main-container py-10 -mt-[45vw] transition-all duration-300 ${isChatActive ? 'ml-0]' : 'ml-[101vw]'}`}>
-            <div data-theme='dark' className='card lg:card-side card-bordered border-gray-600 shadow-md shadow-stone-600 w-[80vw] py-4 mx-auto mb-6 text-gray-200 items-center'>
-
+        <div className= {`main-container 
+                         py-10 
+                         -mt-[45vw] 
+                         transition-all 
+                         duration-300 
+                         ${isChatActive ? 'ml-0]' : 'ml-[101vw]'}`
+                         }>
+            <div data-theme='dark' 
+            className='card lg:card-side card-bordered border-gray-600 shadow-md shadow-stone-600 w-[80vw] py-4 mx-auto mb-6 text-gray-200 items-center'>
                 <div className="card-body mx-0 py-2 items-center">
                     <h2 className="card-title text-[.8rem] sm:text-[1.2rem] ">OpenAI & Langchain </h2>
                     <p className='text-[.6rem] sm:text-[.8rem]'>First test web-app</p>
@@ -49,12 +56,12 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                         onChange={handleInputChange}
                         ref={inputRef}
                     />
-
                     <div className='flex flex-row px-0 mx-0 gap-4 mt-6 justify-center'>
                         <button type='submit' className='btn btn-sm w-[20vw] btn-warning text-sm text-gray-100'>Send message</button>
                         <button type='button' className='btn btn-sm w-[20vw] btn-error text-sm text-gray-100' onClick={handleChat}>clear chat</button>
                     </div>
                 </form>
+
             </div>
         </div>
     )
