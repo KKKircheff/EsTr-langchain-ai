@@ -1,4 +1,3 @@
-import toro from '../../assets/Toro2i.png'
 
 const Intro = () => {
     return (

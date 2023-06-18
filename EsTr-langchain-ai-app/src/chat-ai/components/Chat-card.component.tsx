@@ -2,7 +2,7 @@ import { useRef } from "react";
 import ResponseField from "./Response-field.component"
 
 import { ChatOpenAI } from "langchain/chat_models/openai";
-import { HumanChatMessage, SystemChatMessage } from "langchain/schema"; /* send puur messages */
+import { HumanChatMessage } from "langchain/schema"; /* send puur messages */
 import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from "langchain/prompts";
 
 type ChatCardProps = {
