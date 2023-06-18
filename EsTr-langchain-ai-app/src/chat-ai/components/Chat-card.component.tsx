@@ -5,9 +5,6 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { HumanChatMessage, SystemChatMessage } from "langchain/schema"; /* send puur messages */
 import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from "langchain/prompts";
 
-
-
-
 type ChatCardProps = {
     message: string;
     responseMessage: string[];
@@ -18,14 +15,14 @@ type ChatCardProps = {
 }
 
 
-const model = new ChatOpenAI({
-    openAIApiKey: import.meta.env.VITE_OPENAI_API_KEY,
-    modelName: 'gpt-3.5-turbo',
-    temperature: 0,
-    verbose: true,
-});
-
 const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, isChatActive, setIsChatActive }: ChatCardProps) => {
+    const key = import.meta.env.VITE_OPENAI_API_KEY
+    const model = new ChatOpenAI({
+        openAIApiKey:key,
+        modelName: 'gpt-3.5-turbo',
+        temperature: 0,
+        verbose: true,
+    });
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     // inputRef.current?.focus();
@@ -63,14 +60,22 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // const response = await simpleCall(message);
-        const response = await templateCall(message);
+        
+        if (message.slice(0,7)==='code123'){
+            console.log('message in:', message)
+            const response = await simpleCall(message);
+            setResponseMessage((prevValue) => [...prevValue, message]);
+            setMessage('');
+            setResponseMessage((prevValue) => [...prevValue, response.text])
+            return
+        }
+        console.log('message out:', message)
+        console.log('model:', model)
+        const res = await templateCall(message);
         setResponseMessage((prevValue) => [...prevValue, message]);
-        // const res = response.generations.map((item)=>item);
-        const res = response.generations[0][0].text;
-        console.log('here:', res)
+        const response = res.generations[0][0].text;
         setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, res])
+        setResponseMessage((prevValue) => [...prevValue, response])
     }
 
     const handleChat = () => {
