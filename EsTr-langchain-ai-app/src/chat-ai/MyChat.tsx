@@ -11,7 +11,7 @@ const MyChat = () => {
 
 
     return (
-        <section className='h-[100vh] overflow-hidden' style={{ backgroundImage: `url(${bgSpiralImg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
+        <section className='h-[100vh] m-0 p-0 overflow-hidden' style={{ backgroundImage: `url(${bgSpiralImg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
             <Intro />
             <ChatCard
                 responseMessage={responseMessage}

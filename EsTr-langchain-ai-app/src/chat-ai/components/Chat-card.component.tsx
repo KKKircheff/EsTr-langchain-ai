@@ -86,11 +86,12 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     return (
         <div className={`main-container 
-                         py-10 
-                         -mt-[45vw] 
+                         fixed
+                         top-[50vw]
+                         -mt-[45vw]
                          transition-all 
                          duration-300 
-                         ${isChatActive ? 'ml-0]' : 'ml-[101vw]'}`
+                         ${isChatActive ? 'ml-[10vw]' : 'ml-[101vw]'}`
         }>
             <div data-theme='dark'
                 className='card lg:card-side card-bordered border-gray-600 shadow-md shadow-stone-600 w-[80vw] py-4 mx-auto mb-6 text-gray-200 items-center'>
