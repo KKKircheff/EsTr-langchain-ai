@@ -22,7 +22,6 @@ const MyChat = () => {
                 setIsChatActive={setIsChatActive}
             />
             <ChatBaloon isChatActive={isChatActive} setIsChatActive={setIsChatActive} />
-        {responseMessage.length ? <div className='h-[50vh]'></div>:null}
         </section>
     )
 }
