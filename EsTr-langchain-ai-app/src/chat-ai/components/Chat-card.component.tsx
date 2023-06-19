@@ -49,7 +49,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const templateCall = async (message: string) => {
         const templatePrompt = ChatPromptTemplate.fromPromptMessages([
             SystemMessagePromptTemplate.fromTemplate(
-                "You are a helpful geographic assistant that helps with places geo locations and answers in the language the message is written in. If the information is not enough just answer there is not enough information"
+                "You are a helpful geographic assistant that helps with geo locations of a place.  If the information is not enough just answer, that there is not enough information"
             ),
             HumanMessagePromptTemplate.fromTemplate(`Extracts the name of the place and return the geographic coordinates of the place from the following phrase: {message}`),
         ]);
@@ -67,7 +67,6 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         setIsFocused(false);
         setIsloading(true);
         if (message.slice(0, 7) === 'code123') {
-            console.log('message in:', message)
             const response = await simpleCall(message);
             setResponseMessage((prevValue) => [...prevValue, message]);
             setMessage('');
@@ -75,8 +74,6 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         setIsloading(false);
             return
         }
-        console.log('message out:', message)
-        console.log('model:', model)
         const res = await templateCall(message);
         setResponseMessage((prevValue) => [...prevValue, message]);
         const response = res.generations[0][0].text;
