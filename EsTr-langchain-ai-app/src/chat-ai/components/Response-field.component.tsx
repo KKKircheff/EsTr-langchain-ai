@@ -13,10 +13,10 @@ const ResponseField = ({ responseMessage }: ResponseProps) => {
     }, [responseMessage]);
 
     return (
-        <div className='w-[100%] ml-[11vw] max-h-[90vh]'>
+        <div className='w-[250px] max-h-[80vh]'>
             {responseMessage.length
-                ? <div className=" card w-[86%] max-h-60 sm:max-h-40 overflow-y-scroll lg:card-side card-bordered border-gray-600 my-4 text-gray-200 items-start rounded-md">
-                    <div className="card-body text-sm px-2 py-4">
+                ? <div className=" card max-h-60 sm:max-h-40 overflow-y-scroll card-bordered border-gray-600 my-2 text-gray-200 items-start rounded-md">
+                    <div className="card-body text-[.8rem] mx-0 p-2">
                         {responseMessage.map((item, index) => {
                             const color = index % 2 == 0 ? 'text-lime-400' : 'text-amber-100'
                             return <p key={index} className={color}>{item}</p>
