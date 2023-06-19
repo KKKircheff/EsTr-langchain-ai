@@ -141,7 +141,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                     />
-                    {!isLoading && <button type='submit' className='btn btn-sm bg-transparent text-base text-lime-700 -mr-2 hover:bg-transparent hover:border-transparent hover:text-lime-400'><BsSend /></button>}
+                    {!isLoading && <button type='submit' className='btn bg-transparent text-[1.1rem] text-lime-400 -mr-3 hover:bg-transparent hover:border-transparent hover:text-lime-600'><BsSend /></button>}
                     {isLoading && <button className='btn-disabled btn-md flex flex-row justify-between items-center text-gray-100'>
                         <span className="loading loading-spinner"></span>
                     </button>}
