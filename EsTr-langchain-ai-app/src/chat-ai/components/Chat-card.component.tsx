@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import ResponseField from "./Response-field.component"
+import { BsSend } from 'react-icons/bs';
+import { SlClose } from 'react-icons/sl'
 
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { HumanChatMessage } from "langchain/schema"; /* send puur messages */
@@ -16,7 +18,7 @@ type ChatCardProps = {
 
 
 const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, isChatActive, setIsChatActive }: ChatCardProps) => {
-   
+
     const [isLoading, setIsloading] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
@@ -47,6 +49,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
 
     const templateCall = async (message: string) => {
+
         const templatePrompt = ChatPromptTemplate.fromPromptMessages([
             SystemMessagePromptTemplate.fromTemplate(
                 "You are a helpful geographic assistant that helps with geo locations of a place.  If the information is not enough just answer, that there is not enough information"
@@ -59,21 +62,29 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                 message: message,
             }),
         ]);
+
         return response
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!message) {
+            return
+        }
+
         setIsFocused(false);
         setIsloading(true);
+
         if (message.slice(0, 7) === 'code123') {
             const response = await simpleCall(message);
             setResponseMessage((prevValue) => [...prevValue, message]);
             setMessage('');
             setResponseMessage((prevValue) => [...prevValue, response.text])
-        setIsloading(false);
+            setIsloading(false);
             return
         }
+
         const res = await templateCall(message);
         setResponseMessage((prevValue) => [...prevValue, message]);
         const response = res.generations[0][0].text;
@@ -90,15 +101,15 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     const handleFocus = () => {
         setIsFocused(true);
-      };
+    };
 
-      const handleBlur = () => {
+    const handleBlur = () => {
         // Delay the state update by a short time to allow the form submission to proceed
         setTimeout(() => {
-          setIsFocused(false);
+            setIsFocused(false);
         }, 200);
-      };
-         
+    };
+
     return (
         <div className={`main-container 
                          fixed
@@ -110,32 +121,32 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         }>
             <div data-theme='dark'
                 className='card card-bordered border-gray-600 w-[290px] py-2 mb-6 text-gray-200 items-center'>
-                <div className="card-body mx-0 py-2 items-center">
-                    <p className='text-[.8rem] sm:text-[.8rem] pb-1'>Langchain & OpenAI & Estrella Toro</p>
-                </div>
+                {responseMessage.length
+                    ? null
+                    : <div className="card-body -ml-5 py-2 items-start">
+                        <p className='text-[.8rem] sm:text-[.8rem] pb-1'>Langchain & OpenAI & Estrella Toro</p>
+                    </div>}
 
-                 <ResponseField responseMessage={responseMessage} isFocused={isFocused}/>
+                <ResponseField responseMessage={responseMessage} isFocused={isFocused} />
 
-                <form onSubmit={handleSubmit} className="form-control w-[100%] px-[7%]">
-                    <input type="text"
+                <form onSubmit={handleSubmit} className="flex flex-row items-center form-control w-[90%] ml-3">
+                    <input type='text'
+                        className="input w-[100%] text-[.8rem] text-gray-300 px-2 py-0 mx-0 my-2 h-8 border-gray-600 border-[1px] focus:border-gray-400 focus:border-[1px] focus:outline-none"
+                        maxLength={150}
                         required
                         placeholder="your message"
-                        className="input w-[100%] text-[.8rem] input-sm border-yellow-500 border-[1px]"
                         value={message}
                         onChange={handleInputChange}
                         ref={inputRef}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                     />
-                    <div className='flex flex-row px-0 mx-0 gap-4 mt-6 justify-center'>
-                        {!isLoading && <button type='submit' className='btn btn-sm w-[110px] btn-warning text-sm text-gray-100'>Send message</button>}
-                        {isLoading && <button className='btn-disabled btn-sm flex flex-row justify-between items-center w-[110px] text-sm text-gray-100'>
-                            <span className="loading loading-spinner"></span>
-                            <span>loading...</span>
-                        </button>}
-                        <button type='button' className='btn btn-sm w-[110px] btn-error text-sm text-gray-100' onClick={handleChat}>clear chat</button>
-                    </div>
+                    {!isLoading && <button type='submit' className='btn btn-sm bg-transparent text-base text-lime-700 -mr-2 hover:bg-transparent hover:border-transparent hover:text-lime-400'><BsSend /></button>}
+                    {isLoading && <button className='btn-disabled btn-md flex flex-row justify-between items-center text-gray-100'>
+                        <span className="loading loading-spinner"></span>
+                    </button>}
                 </form>
+                <button type='button' className='btn bg-transparent absolute -top-0 right-3 btn-sm text-base text-gray-400 p-0 m-0 hover:bg-transparent hover:text-gray-300' onClick={handleChat}><SlClose /></button>
 
             </div>
         </div>
