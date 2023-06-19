@@ -18,6 +18,7 @@ type ChatCardProps = {
 const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, isChatActive, setIsChatActive }: ChatCardProps) => {
    
     const [isLoading, setIsloading] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     const key = import.meta.env.VITE_OPENAI_API_KEY
     const model = new ChatOpenAI({
@@ -63,6 +64,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsFocused(false);
         setIsloading(true);
         if (message.slice(0, 7) === 'code123') {
             console.log('message in:', message)
@@ -89,6 +91,11 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         setMessage('');
     }
 
+    const handleFocus = () => {
+        setIsFocused(true);
+      };
+    
+     
     return (
         <div className={`main-container 
                          fixed
@@ -105,7 +112,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                     <p className='text-[.6rem] sm:text-[.8rem]'>First test web-app</p>
                 </div>
 
-                <ResponseField responseMessage={responseMessage} />
+                 <ResponseField responseMessage={responseMessage} isFocused={isFocused}/>
 
                 <form onSubmit={handleSubmit} className="form-control w-[100%] px-[7%]">
                     <input type="text"
@@ -115,6 +122,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                         value={message}
                         onChange={handleInputChange}
                         ref={inputRef}
+                        onFocus={handleFocus}
                     />
                     <div className='flex flex-row px-0 mx-0 gap-4 mt-6 justify-center'>
                         {!isLoading && <button type='submit' className='btn btn-sm w-[110px] btn-warning text-sm text-gray-100'>Send message</button>}
