@@ -94,8 +94,14 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const handleFocus = () => {
         setIsFocused(true);
       };
-    
-     
+
+      const handleBlur = () => {
+        // Delay the state update by a short time to allow the form submission to proceed
+        setTimeout(() => {
+          setIsFocused(false);
+        }, 200);
+      };
+         
     return (
         <div className={`main-container 
                          fixed
@@ -122,6 +128,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                         onChange={handleInputChange}
                         ref={inputRef}
                         onFocus={handleFocus}
+                        onBlur={handleBlur}
                     />
                     <div className='flex flex-row px-0 mx-0 gap-4 mt-6 justify-center'>
                         {!isLoading && <button type='submit' className='btn btn-sm w-[110px] btn-warning text-sm text-gray-100'>Send message</button>}
