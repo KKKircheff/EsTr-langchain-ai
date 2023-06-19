@@ -16,7 +16,7 @@ const ResponseField = ({ responseMessage, isFocused}: ResponseProps) => {
     return (
         <div className='w-[250px] max-h-[80vh]'>
             {responseMessage.length
-                ? <div className={`card ${isFocused ? 'max-h-16':'max-h-80'} sm:max-h-40 overflow-y-scroll card-bordered border-gray-600 my-2 text-gray-200 items-start rounded-md`}>
+                ? <div className={`card ${isFocused ? 'max-h-12':'max-h-80'} sm:max-h-40 overflow-y-scroll card-bordered border-gray-600 my-2 text-gray-200 items-start rounded-md`}>
                     <div className="card-body text-[.8rem] mx-0 p-2">
                         {responseMessage.map((item, index) => {
                             const color = index % 2 == 0 ? 'text-lime-400' : 'text-amber-100'
