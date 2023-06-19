@@ -106,10 +106,9 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                          ${isChatActive ? 'ml-[calc(100vw_-_300px)] sm:ml-[calc(100vw_-_320px)]' : 'ml-[101vw]'}`
         }>
             <div data-theme='dark'
-                className='card card-bordered border-gray-600 w-[290px] py-4 mb-6 text-gray-200 items-center'>
+                className='card card-bordered border-gray-600 w-[290px] py-2 mb-6 text-gray-200 items-center'>
                 <div className="card-body mx-0 py-2 items-center">
-                    <h2 className="card-title text-[.8rem] sm:text-[1.2rem] ">OpenAI & Langchain </h2>
-                    <p className='text-[.6rem] sm:text-[.8rem]'>First test web-app</p>
+                    <p className='text-[.8rem] sm:text-[.8rem] pb-1'>Langchain & OpenAI & Estrella Toro</p>
                 </div>
 
                  <ResponseField responseMessage={responseMessage} isFocused={isFocused}/>
