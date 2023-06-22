@@ -3,10 +3,10 @@ import { BraveSearch } from "langchain/tools";
 
 import { Calculator } from 'langchain/tools/calculator';
 import { ChatAgent, AgentExecutor } from 'langchain/agents';
-import * as dotenv from 'dotenv';
+// import * as dotenv from 'dotenv';
 
-exports.handler = async (event)=> {
-    dotenv.config();
+export const handler = async (event)=> {
+    // dotenv.config();
     const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
       const keyBrave = process.env.VITE_BRAVE_API;
 
@@ -50,7 +50,7 @@ exports.handler = async (event)=> {
         return {
             statusCode: 400,
             body: JSON.stringify({
-                response: 'Sorry something went wrong with this search. Could you be more specific, please.',
+                response: 'Sorry something went wrong with this search. I tried hard but could not find proper result...',
             }),
         };
     }

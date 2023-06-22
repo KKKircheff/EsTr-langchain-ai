@@ -2,11 +2,11 @@
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { LLMChain } from "langchain/chains";
 import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from "langchain/prompts";
-import * as dotenv from 'dotenv';
+// import * as dotenv from 'dotenv';
 
-exports.handler = async (event)=> {
+export const handler = async (event)=> {
 
-    dotenv.config();
+    // dotenv.config();
 
     const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
 
