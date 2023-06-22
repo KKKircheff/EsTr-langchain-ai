@@ -3,9 +3,8 @@ import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
 
-import { ChatOpenAI } from "langchain/chat_models/openai";
-import { HumanChatMessage } from "langchain/schema"; /* send puur messages */
-import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from "langchain/prompts";
+
+
 
 type ChatCardProps = {
     message: string;
@@ -21,50 +20,48 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     const [isLoading, setIsloading] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-
-    const key = import.meta.env.VITE_OPENAI_API_KEY
-    const model = new ChatOpenAI({
-        openAIApiKey: key,
-        modelName: 'gpt-3.5-turbo',
-        temperature: 0,
-        verbose: true,
-    });
-
     const inputRef = useRef<HTMLInputElement | null>(null);
     // inputRef.current?.focus();
+
+    const simpleCall = async (message: string) => {
+        try {
+            const res = await fetch('/.netlify/functions/simpleCall', {
+                method: "POST",
+                body: JSON.stringify({ message })
+            });
+             const { response } = await res.json()
+             setResponseMessage((prevValue) => [...prevValue, message]);
+             setMessage('');
+             setResponseMessage((prevValue) => [...prevValue, response])
+             setIsloading(false);
+             return
+        } catch (error) {
+            const response = 'Something went wrong. Please be more specific'
+            setResponseMessage((prevValue) => [...prevValue, message]);
+            setMessage('');
+            setResponseMessage((prevValue) => [...prevValue, response])
+            setIsloading(false);
+        }
+    }
+
+    const templateCall = async (message: string) => {
+        const res = await fetch('/.netlify/functions/templateCall', {
+            method: "POST",
+            body: JSON.stringify({ message })
+        });
+        const { response } = await res.json();
+        alert(response);
+        setResponseMessage((prevValue) => [...prevValue, message]);
+        const responseFromAPI = response.text;
+        setMessage('');
+        setResponseMessage((prevValue) => [...prevValue, responseFromAPI]);
+        setIsloading(false);
+        return
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(e.target.value);
     };
-
-    const simpleCall = async (message: string) => {
-        const response = model.call([
-            new HumanChatMessage(
-                `answer with 3 sentances in the following message in the language of the prompt: ${message}`
-            ),
-        ]);
-        return response;
-    }
-
-
-
-    const templateCall = async (message: string) => {
-
-        const templatePrompt = ChatPromptTemplate.fromPromptMessages([
-            SystemMessagePromptTemplate.fromTemplate(
-                "You are a helpful geographic assistant that helps with geo locations of a place.  If the information is not enough just answer, that there is not enough information"
-            ),
-            HumanMessagePromptTemplate.fromTemplate(`Extracts the name of the place and return the geographic coordinates of the place from the following phrase: {message}`),
-        ]);
-
-        const response = model.generatePrompt([
-            await templatePrompt.formatPromptValue({
-                message: message,
-            }),
-        ]);
-
-        return response
-    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -76,21 +73,13 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         setIsFocused(false);
         setIsloading(true);
 
-        if (message.slice(0, 7) === 'code123') {
-            const response = await simpleCall(message);
-            setResponseMessage((prevValue) => [...prevValue, message]);
-            setMessage('');
-            setResponseMessage((prevValue) => [...prevValue, response.text])
-            setIsloading(false);
+        if (message.slice(0, 3) === '!!!') {
+            await simpleCall(message.slice(3));
             return
         }
 
         const res = await templateCall(message);
-        setResponseMessage((prevValue) => [...prevValue, message]);
-        const response = res.generations[0][0].text;
-        setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, response]);
-        setIsloading(false);
+
     }
 
     const handleChat = () => {
