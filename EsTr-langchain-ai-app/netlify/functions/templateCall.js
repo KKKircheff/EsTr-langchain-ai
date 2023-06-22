@@ -13,6 +13,7 @@ export async function handler(event) {
 
     const { message } = JSON.parse(event.body);
 
+    console.log('message',message)
     const model = new ChatOpenAI({
         openAIApiKey: keyOpenAPI,
         modelName: 'gpt-3.5-turbo',
