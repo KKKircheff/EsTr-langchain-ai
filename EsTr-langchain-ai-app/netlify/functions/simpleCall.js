@@ -6,7 +6,7 @@ import { Calculator } from 'langchain/tools/calculator';
 import { ChatAgent, AgentExecutor } from 'langchain/agents';
 import * as dotenv from 'dotenv';
 
-export async function handler(event) {
+exports.handler = async (event)=> {
     dotenv.config();
     const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
       const keyBrave = process.env.VITE_BRAVE_API;
