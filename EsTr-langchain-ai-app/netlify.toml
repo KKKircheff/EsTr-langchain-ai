@@ -1,0 +1,2 @@
+[functions]
+external_node_modules = ['ChatOpenAI','BraveSearch', 'Calculator', 'ChatAgent', 'AgentExecutor']
