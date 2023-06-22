@@ -4,6 +4,12 @@ import { BraveSearch } from 'langchain/tools';
 // import { Calculator } from 'langchain/tools/calculator';
 import { ChatAgent, AgentExecutor } from 'langchain/agents';
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers':
+    'Origin, X-Requested-With, Content-Type, Accept',
+};
+
 export const handler = async (event) => {
   const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
   const keyBrave = process.env.VITE_BRAVE_API;
@@ -35,6 +41,7 @@ export const handler = async (event) => {
     const response = await executor.run(message);
     return {
       statusCode: 200,
+      headers: { ...CORS_HEADERS },
       body: JSON.stringify({
         response: response,
       }),
@@ -42,6 +49,7 @@ export const handler = async (event) => {
   } catch (error) {
     return {
       statusCode: 400,
+      headers: { ...CORS_HEADERS },
       body: JSON.stringify({
         response:
           'Sorry something went wrong with this search. I tried hard but could not find proper result...',

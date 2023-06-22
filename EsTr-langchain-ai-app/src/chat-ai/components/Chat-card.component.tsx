@@ -3,9 +3,6 @@ import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
 
-
-
-
 type ChatCardProps = {
     message: string;
     responseMessage: string[];
