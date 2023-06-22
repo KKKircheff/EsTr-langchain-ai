@@ -50,11 +50,11 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
             body: JSON.stringify({ message })
         });
         const { response } = await res.json();
-        alert(response);
+    
         setResponseMessage((prevValue) => [...prevValue, message]);
-        const responseFromAPI = response.text;
+        const responseFromAPI = response;
         setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, responseFromAPI]);
+        setResponseMessage((prevValue) => [...prevValue, responseFromAPI.text]);
         setIsloading(false);
         return
     }
