@@ -3,6 +3,12 @@ import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
 
+const CORS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+        'Origin, X-Requested-With, Content-Type, Accept',
+};
+
 type ChatCardProps = {
     message: string;
     responseMessage: string[];
@@ -24,6 +30,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         try {
             const res = await fetch('/.netlify/functions/simpleCall', {
                 method: "POST",
+                headers: { ...CORS_HEADERS },
                 body: JSON.stringify({ message })
             });
              const { response } = await res.json()
@@ -44,6 +51,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const templateCall = async (message: string) => {
         const res = await fetch('/.netlify/functions/templateCall', {
             method: "POST",
+            headers: { ...CORS_HEADERS },
             body: JSON.stringify({ message })
         });
         const { response } = await res.json();
