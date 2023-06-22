@@ -1,10 +1,12 @@
 
 import { ChatOpenAI } from "langchain/chat_models/openai";
+// import { OpenAI } from "langchain/llms/openai";
 import { LLMChain } from "langchain/chains";
 import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from "langchain/prompts";
 import * as dotenv from 'dotenv';
 
 exports.handler = async (event)=> {
+
 
     dotenv.config();
 
