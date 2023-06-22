@@ -25,14 +25,14 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     const simpleCall = async (message: string) => {
         try {
-            const res = await fetch('/.netlify/functions/simpleCall', {
-                method: "POST",
-                body: JSON.stringify({ message })
-            });
-             const { response } = await res.json()
+            // const res = await fetch('/.netlify/functions/simpleCall', {
+            //     method: "POST",
+            //     body: JSON.stringify({ message })
+            // });
+            //  const { response } = await res.json()
              setResponseMessage((prevValue) => [...prevValue, message]);
              setMessage('');
-             setResponseMessage((prevValue) => [...prevValue, response])
+            //  setResponseMessage((prevValue) => [...prevValue, response])
              setIsloading(false);
              return
         } catch (error) {
@@ -45,16 +45,16 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     }
 
     const templateCall = async (message: string) => {
-        const res = await fetch('/.netlify/functions/templateCall', {
-            method: "POST",
-            body: JSON.stringify({ message })
-        });
-        const { response } = await res.json();
+        // const res = await fetch('/.netlify/functions/templateCall', {
+        //     method: "POST",
+        //     body: JSON.stringify({ message })
+        // });
+        // const { response } = await res.json();
     
         setResponseMessage((prevValue) => [...prevValue, message]);
-        const responseFromAPI = response;
+        // const responseFromAPI = response;
         setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, responseFromAPI.text]);
+        // setResponseMessage((prevValue) => [...prevValue, responseFromAPI.text]);
         setIsloading(false);
         return
     }
