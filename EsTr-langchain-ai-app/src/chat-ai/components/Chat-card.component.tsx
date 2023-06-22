@@ -24,31 +24,39 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     // inputRef.current?.focus();
 
     const simpleCall = async (message: string) => {
-        const res = await fetch('/.netlify/functions/simpleCall', {
-            method: "POST",
-            body: JSON.stringify({message})
-          });
-          const {response}  = await res.json();
-        console.log('main app response-----:', response)
-        setResponseMessage((prevValue) => [...prevValue, message]);
-        setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, response])
-        setIsloading(false);
-        return
+        try {
+            const res = await fetch('/.netlify/functions/simpleCall', {
+                method: "POST",
+                body: JSON.stringify({ message })
+            });
+             const { response } = await res.json()
+             setResponseMessage((prevValue) => [...prevValue, message]);
+             setMessage('');
+             setResponseMessage((prevValue) => [...prevValue, response])
+             setIsloading(false);
+             return
+        } catch (error) {
+            const response = 'Something went wrong. Please be more specific'
+            setResponseMessage((prevValue) => [...prevValue, message]);
+            setMessage('');
+            setResponseMessage((prevValue) => [...prevValue, response])
+            setIsloading(false);
+        }
     }
-    
+
     const templateCall = async (message: string) => {
         const res = await fetch('/.netlify/functions/templateCall', {
-            method: "GET",
-            body: JSON.stringify({ message:message})
-          });
-          const { response } = await res.json();
+            method: "POST",
+            body: JSON.stringify({ message })
+        });
+        const { response } = await res.json();
+        alert(response);
         setResponseMessage((prevValue) => [...prevValue, message]);
         const responseFromAPI = response.text;
         setMessage('');
         setResponseMessage((prevValue) => [...prevValue, responseFromAPI]);
         setIsloading(false);
-        return 
+        return
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +79,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         }
 
         const res = await templateCall(message);
-        
+
     }
 
     const handleChat = () => {
