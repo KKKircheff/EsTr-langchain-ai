@@ -1,5 +1,4 @@
 import { ChatOpenAI } from "langchain/chat_models/openai";
-// import { SerpAPI } from 'langchain/tools';
 import { BraveSearch } from "langchain/tools";
 
 import { Calculator } from 'langchain/tools/calculator';
@@ -10,7 +9,6 @@ exports.handler = async (event)=> {
     dotenv.config();
     const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
       const keyBrave = process.env.VITE_BRAVE_API;
-    // const keySerp = process.env.VITE_SERP_API;
 
     const { message } = JSON.parse(event.body);
 
@@ -27,10 +25,6 @@ exports.handler = async (event)=> {
            new BraveSearch({
             apiKey:keyBrave
         }),
-        // new SerpAPI(keySerp, {
-        //     hl: 'en',
-        //     gl: 'us',
-        // }),
         new Calculator(),
     ];
 
