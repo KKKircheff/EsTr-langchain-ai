@@ -1,10 +1,6 @@
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { LLMChain } from 'langchain/chains';
-import {
-  SystemMessagePromptTemplate,
-  HumanMessagePromptTemplate,
-  ChatPromptTemplate,
-} from 'langchain/prompts';
+import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from 'langchain/prompts';
 
 export const handler = async (event) => {
 
@@ -16,7 +12,7 @@ export const handler = async (event) => {
     openAIApiKey: keyOpenAPI,
     modelName: 'gpt-3.5-turbo',
     temperature: 0,
-    verbose: true,
+    verbose: true
   });
 
   const templatePrompt = ChatPromptTemplate.fromPromptMessages([
@@ -30,26 +26,25 @@ export const handler = async (event) => {
 
   const chain = new LLMChain({
     llm: model,
-    prompt: templatePrompt,
+    prompt: templatePrompt
   });
 
   try {
     const response = await chain.call({
-      message: message,
-    });
+      message: message
+    })
     return {
       statusCode: 200,
       body: JSON.stringify({
-        response: response,
-      }),
-    };
+        response: response
+      })
+    }
   } catch (error) {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        response:
-          'Sorry something went wrong with this search. Could you be more specific, please.',
-      }),
-    };
+        response: 'Sorry something went wrong with this search. Could you be more specific, please.'
+      })
+    }
   }
-};
+}
