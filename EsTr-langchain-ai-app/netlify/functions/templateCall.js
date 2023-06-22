@@ -5,16 +5,13 @@ import {
   HumanMessagePromptTemplate,
   ChatPromptTemplate,
 } from 'langchain/prompts';
-// import * as dotenv from 'dotenv';
 
 export const handler = async (event) => {
-  // dotenv.config();
 
   const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
 
   const { message } = JSON.parse(event.body);
 
-  console.log('message', message);
   const model = new ChatOpenAI({
     openAIApiKey: keyOpenAPI,
     modelName: 'gpt-3.5-turbo',
@@ -40,7 +37,6 @@ export const handler = async (event) => {
     const response = await chain.call({
       message: message,
     });
-
     return {
       statusCode: 200,
       body: JSON.stringify({

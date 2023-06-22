@@ -3,10 +3,8 @@ import { BraveSearch } from 'langchain/tools';
 
 import { Calculator } from 'langchain/tools/calculator';
 import { ChatAgent, AgentExecutor } from 'langchain/agents';
-// import * as dotenv from 'dotenv';
 
 export const handler = async (event) => {
-  // dotenv.config();
   const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
   const keyBrave = process.env.VITE_BRAVE_API;
 
