@@ -14,9 +14,6 @@ dependencies:
   daisyui:
     specifier: ^3.1.0
     version: 3.1.0(postcss@8.4.24)
-  dotenv:
-    specifier: ^16.3.1
-    version: 16.3.1
   langchain:
     specifier: ^0.0.95
     version: 0.0.95
@@ -1156,11 +1153,6 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
-
-  /dotenv@16.3.1:
-    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
-    engines: {node: '>=12'}
-    dev: false
 
   /electron-to-chromium@1.4.437:
     resolution: {integrity: sha512-ZFekRuBOHUXp21wrR5lshT6pZa/KmjkhKBAtmZz4NN5sCWlHOk3kdhiwFINrDBsRLX6FjyBAb1TRN+KBeNlyzQ==}
