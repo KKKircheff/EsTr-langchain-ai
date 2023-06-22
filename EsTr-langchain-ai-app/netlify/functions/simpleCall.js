@@ -1,7 +1,7 @@
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { BraveSearch } from 'langchain/tools';
 
-import { Calculator } from 'langchain/tools/calculator';
+// import { Calculator } from 'langchain/tools/calculator';
 import { ChatAgent, AgentExecutor } from 'langchain/agents';
 
 export const handler = async (event) => {
@@ -21,7 +21,7 @@ export const handler = async (event) => {
     new BraveSearch({
       apiKey: keyBrave,
     }),
-    new Calculator(),
+    // new Calculator(),
   ];
 
   const agent = ChatAgent.fromLLMAndTools(model, tools);
