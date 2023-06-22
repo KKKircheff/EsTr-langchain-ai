@@ -78,7 +78,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
             return
         }
 
-        const res = await templateCall(message);
+        await templateCall(message);
 
     }
 
