@@ -4,7 +4,7 @@ import { LLMChain } from "langchain/chains";
 import { SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate } from "langchain/prompts";
 // import * as dotenv from 'dotenv';
 
-export const handler = async (event)=> {
+export const handler = async (event, context)=> {
 
     // dotenv.config();
 
