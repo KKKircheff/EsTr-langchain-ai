@@ -1,3 +1,6 @@
+/// README.md !!!!
+
+
 // import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { OpenAI } from "langchain";
 // import { LLMChain } from 'langchain/chains';
