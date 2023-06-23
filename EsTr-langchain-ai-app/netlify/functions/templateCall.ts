@@ -56,7 +56,7 @@ export const handler = async (event) => {
             headers: { ...CORS_HEADERS },
             body: JSON.stringify({
                 response:
-                    `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message}`,
+                    `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message} ${keyOpenAPI}`,
             }),
         };
     }
