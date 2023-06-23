@@ -1,10 +1,10 @@
 import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { LLMChain } from 'langchain/chains';
-import {
-    SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-    ChatPromptTemplate,
-} from 'langchain/prompts';
+// import { LLMChain } from 'langchain/chains';
+// import {
+//     SystemMessagePromptTemplate,
+//     HumanMessagePromptTemplate,
+//     ChatPromptTemplate,
+// } from 'langchain/prompts';
 
 const CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
@@ -25,38 +25,36 @@ export const handler = async (event) => {
         verbose: true,
     });
 
-    const templatePrompt = ChatPromptTemplate.fromPromptMessages([
-        SystemMessagePromptTemplate.fromTemplate(
-            'You are a helpful geographic assistant that helps with geo locations of a place. Your name is Lolita. If the information is not enough just answer, that there is not enough information'
-        ),
-        HumanMessagePromptTemplate.fromTemplate(
-            `Extracts the name of the place and return the geographic coordinates of the place from the following phrase: {message}`
-        ),
-    ]);
+    // const templatePrompt = ChatPromptTemplate.fromPromptMessages([
+    //     SystemMessagePromptTemplate.fromTemplate(
+    //         'You are a helpful geographic assistant that helps with geo locations of a place. Your name is Lolita. If the information is not enough just answer, that there is not enough information'
+    //     ),
+    //     HumanMessagePromptTemplate.fromTemplate(
+    //         `Extracts the name of the place and return the geographic coordinates of the place from the following phrase: {message}`
+    //     ),
+    // ]);
 
-    const chain = new LLMChain({
-        llm: model,
-        prompt: templatePrompt,
-    });
- let alreadyHear = 'pass by'
-    // try {
-        const response = await chain.run(message);
-        alreadyHear=response.toString();
+    // const chain = new LLMChain({
+    //     llm: model,
+    //     prompt: templatePrompt,
+    // });
+    try {
+        const response = await model.call(message);
         return {
             statusCode: 200,
             headers: { ...CORS_HEADERS },
             body: JSON.stringify({
                 response: response,
             })
-    //     }
-    // } catch (error) {
-    //     return {
-    //         statusCode: 400,
-    //         headers: { ...CORS_HEADERS },
-    //         body: JSON.stringify({
-    //             response:
-    //                 `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message} ${alreadyHear}`,
-    //         }),
-    //     };
+        }
+    } catch (error) {
+        return {
+            statusCode: 400,
+            headers: { ...CORS_HEADERS },
+            body: JSON.stringify({
+                response:
+                    `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message}`,
+            }),
+        };
     }
 }
