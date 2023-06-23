@@ -23,7 +23,6 @@ export const handler = async (event) => {
         openAIApiKey: keyOpenAPI,
         modelName: 'gpt-3.5-turbo',
         temperature: 0,
-        verbose: true,
     });
 
     // const templatePrompt = ChatPromptTemplate.fromPromptMessages([
