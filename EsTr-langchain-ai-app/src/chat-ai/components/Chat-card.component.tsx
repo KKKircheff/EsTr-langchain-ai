@@ -36,11 +36,11 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
              const { response } = await res.json()
              setResponseMessage((prevValue) => [...prevValue, message]);
              setMessage('');
-             setResponseMessage((prevValue) => [...prevValue, response])
+             setResponseMessage((prevValue) => [...prevValue, response.output])
              setIsloading(false);
              return
         } catch (error) {
-            const response = 'Something went wrong. Please be more specific'
+            const response = "I can't find relible sources for this question. Could you try to rephrase it?"
             setResponseMessage((prevValue) => [...prevValue, message]);
             setMessage('');
             setResponseMessage((prevValue) => [...prevValue, response])
@@ -49,6 +49,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     }
 
     const templateCall = async (message: string) => {
+        try {
         const res = await fetch('/.netlify/functions/templateCall', {
             method: "POST",
             headers: { ...CORS_HEADERS },
@@ -61,7 +62,13 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         setMessage('');
         setResponseMessage((prevValue) => [...prevValue, responseFromAPI.text]);
         setIsloading(false);
-        return
+        return } catch (error){
+            setResponseMessage((prevValue) => [...prevValue, message]);
+            setMessage('');
+            setResponseMessage((prevValue) => [...prevValue, 'Excuses something whent wrong!']);
+            setIsloading(false);
+            return
+        }
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

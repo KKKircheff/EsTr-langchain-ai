@@ -27,7 +27,7 @@ export const handler = async (event) => {
 
     const templatePrompt = ChatPromptTemplate.fromPromptMessages([
         SystemMessagePromptTemplate.fromTemplate(
-            'You are a helpful geographic assistant that helps with geo locations of a place.  If the information is not enough just answer, that there is not enough information'
+            'You are a helpful geographic assistant that helps with geo locations of a place. Your name is Lolita. If the information is not enough just answer, that there is not enough information'
         ),
         HumanMessagePromptTemplate.fromTemplate(
             `Extracts the name of the place and return the geographic coordinates of the place from the following phrase: {message}`

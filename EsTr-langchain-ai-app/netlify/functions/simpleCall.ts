@@ -1,8 +1,11 @@
-import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { BraveSearch } from 'langchain/tools';
+// import { OpenAI } from 'langchain';
+import { SerpAPI } from 'langchain/tools';
+// import { BraveSearch } from 'langchain/tools';
 
-// import { Calculator } from 'langchain/tools/calculator';
-import { ChatAgent, AgentExecutor } from 'langchain/agents';
+import { Calculator } from 'langchain/tools/calculator';
+// import { ChatAgent, AgentExecutor } from 'langchain/agents';
+import { initializeAgentExecutorWithOptions } from 'langchain/agents';
+import { ChatOpenAI } from 'langchain/chat_models/openai';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -12,7 +15,8 @@ const CORS_HEADERS = {
 
 export const handler = async (event) => {
   const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
-  const keyBrave = process.env.VITE_BRAVE_API;
+//   const keyBrave = process.env.VITE_BRAVE_API;
+  const keySERP = process.env.VITE_SERP_API
 
   const { message } = JSON.parse(event.body);
 
@@ -24,21 +28,29 @@ export const handler = async (event) => {
   });
 
   const tools = [
-    new BraveSearch({
-      apiKey: keyBrave,
+    // new BraveSearch({
+    //   apiKey: keyBrave,
+    // }),
+    new SerpAPI(keySERP,{
+        hl:'en',
     }),
-    // new Calculator(),
+    new Calculator(),
   ];
 
-  const agent = ChatAgent.fromLLMAndTools(model, tools);
+//   const agent = ChatAgent.fromLLMAndTools(model, tools);
 
-  const executor = AgentExecutor.fromAgentAndTools({
-    agent: agent,
-    tools: tools,
+  const executor = await initializeAgentExecutorWithOptions(tools, model, {
+    agentType: "chat-zero-shot-react-description",
     verbose: true,
   });
+
+//   const executor = AgentExecutor.fromAgentAndTools({
+//     agent: agent,
+//     tools: tools,
+//     verbose: true,
+//   });
   try {
-    const response = await executor.run(message);
+    const response = await executor.call({input:message});
     return {
       statusCode: 200,
       headers: { ...CORS_HEADERS },
@@ -52,7 +64,7 @@ export const handler = async (event) => {
       headers: { ...CORS_HEADERS },
       body: JSON.stringify({
         response:
-          `Sorry something went wrong with this search. I tried hard but could not find proper result...${error} ${keyOpenAPI}`,
+          `Sorry something went wrong with this search. I tried hard but could not find proper result...`,
       }),
     };
   }
