@@ -1,4 +1,5 @@
-import { ChatOpenAI } from 'langchain/chat_models/openai';
+// import { ChatOpenAI } from 'langchain/chat_models/openai';
+import { OpenAI } from "langchain";
 // import { LLMChain } from 'langchain/chains';
 // import {
 //     SystemMessagePromptTemplate,
@@ -18,7 +19,7 @@ export const handler = async (event) => {
     const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
 
 
-    const model = new ChatOpenAI({
+    const model = new OpenAI({
         openAIApiKey: keyOpenAPI,
         modelName: 'gpt-3.5-turbo',
         temperature: 0,
