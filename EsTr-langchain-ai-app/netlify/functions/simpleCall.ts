@@ -14,31 +14,32 @@ const CORS_HEADERS = {
 };
 
 export const handler = async (event) => {
+    
+let checker = 'start';
 
   const message = event.queryStringParameters.parameter;
   const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
   const keyBrave = process.env.VITE_BRAVE_API;
 //   const keySERP = process.env.VITE_SERP_API
-
-console.log('after keys:')
-
-  const model = new ChatOpenAI({
-    openAIApiKey: keyOpenAPI,
-    modelName: 'gpt-3.5-turbo',
-    temperature: 0,
-    verbose: true,
-  });
- console.log('after model:')
- const tools = [
-     new BraveSearch({
-         apiKey: keyBrave,
+ checker = 'after keys'
+ 
+ const model = new ChatOpenAI({
+     openAIApiKey: keyOpenAPI,
+     modelName: 'gpt-3.5-turbo',
+     temperature: 0,
+     verbose: true,
+    });
+    checker = 'after model'
+    const tools = [
+        new BraveSearch({
+            apiKey: keyBrave,
         }),
         // new SerpAPI(keySERP,{
             //     hl:'en',
             // }),
             new Calculator(),
         ];
-        console.log('after tools:')
+        checker = 'after tools'
         
         //   const agent = ChatAgent.fromLLMAndTools(model, tools);
         
@@ -53,7 +54,7 @@ console.log('after keys:')
                 verbose: true,
             });
             
-            console.log('after executor:')
+            checker = 'after executor'
   try {
     const response = await executor.call({input:message});
     console.log('backend:', response)
@@ -70,7 +71,7 @@ console.log('after keys:')
       headers: { ...CORS_HEADERS },
       body: JSON.stringify({
         response:
-          `Sorry something went wrong with this search. I tried hard but could not find proper result...`,
+          `Sorry something went wrong with this search. I tried hard but could not find proper result...${checker}`,
       }),
     };
   }
