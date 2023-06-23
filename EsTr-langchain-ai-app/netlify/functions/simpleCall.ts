@@ -52,7 +52,7 @@ export const handler = async (event) => {
       headers: { ...CORS_HEADERS },
       body: JSON.stringify({
         response:
-          'Sorry something went wrong with this search. I tried hard but could not find proper result...',
+          `Sorry something went wrong with this search. I tried hard but could not find proper result...${error}`,
       }),
     };
   }
