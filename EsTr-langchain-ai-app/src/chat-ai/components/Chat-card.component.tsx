@@ -38,7 +38,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
              setIsloading(false);
              return
         } catch (error) {
-            const response = "I can't find relible sources for this question. Could you try to rephrase it?"
+            const response = `I can't find relible sources for this question. Could you try to rephrase it? ${error}`
             setResponseMessage((prevValue) => [...prevValue, message]);
             setMessage('');
             setResponseMessage((prevValue) => [...prevValue, response])
@@ -48,7 +48,6 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
 
     const templateCall = async (message: string) => {
         if (!message) return
-        console.log('in:', message)
         try {
         const data = await fetch(`/.netlify/functions/templateCall?parameter=${message}`);
         const { response } = await data.json();
@@ -59,7 +58,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         return } catch (error){
             setResponseMessage((prevValue) => [...prevValue, message]);
             setMessage('');
-            setResponseMessage((prevValue) => [...prevValue, 'Excuses something whent wrong!']);
+            setResponseMessage((prevValue) => [...prevValue, `Excuses something whent wrong! ${error}`]);
             setIsloading(false);
             return
         }
