@@ -38,11 +38,12 @@ export const handler = async (event) => {
         llm: model,
         prompt: templatePrompt,
     });
- const alreadyHear = 'pass by'
+ let alreadyHear = 'pass by'
     try {
         const response = await chain.call({
             message: message,
         });
+        alreadyHear=response.toString();
         return {
             statusCode: 200,
             headers: { ...CORS_HEADERS },
@@ -56,7 +57,7 @@ export const handler = async (event) => {
             headers: { ...CORS_HEADERS },
             body: JSON.stringify({
                 response:
-                    `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message} ${keyOpenAPI}`,
+                    `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message} ${alreadyHear}`,
             }),
         };
     }
