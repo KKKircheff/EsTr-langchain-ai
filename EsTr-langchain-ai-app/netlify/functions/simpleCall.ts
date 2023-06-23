@@ -45,7 +45,7 @@ export const handler = async (event) => {
   //   });
 
   const executor = await initializeAgentExecutorWithOptions(tools, model, {
-    agentType: 'chat-zero-shot-react-description',
+    agentType: 'zero-shot-react-description',
     verbose: true,
   });
 
