@@ -49,8 +49,10 @@ export const handler = async (event) => {
     verbose: true,
   });
 
+  const input = message;
+
   try {
-    const response = await executor.call({ input: message });
+    const response = await executor.call({ input });
     return {
       statusCode: 200,
       headers: { ...CORS_HEADERS },
