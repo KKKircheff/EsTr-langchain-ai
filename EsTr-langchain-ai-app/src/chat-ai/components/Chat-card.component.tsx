@@ -47,7 +47,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
             setMessage('');
             setResponseMessage((prevValue) => [...prevValue, response])
             setIsloading(false);
-        }
+        } 
     }
 
     const templateCall = async (message: string) => {

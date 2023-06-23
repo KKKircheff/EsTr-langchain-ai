@@ -39,25 +39,24 @@ export const handler = async (event) => {
         prompt: templatePrompt,
     });
  let alreadyHear = 'pass by'
-    try {
-        const response = await chain.run(message
-        );
+    // try {
+        const response = await chain.run(message);
         alreadyHear=response.toString();
         return {
             statusCode: 200,
             headers: { ...CORS_HEADERS },
             body: JSON.stringify({
                 response: response,
-            }),
-        };
-    } catch (error) {
-        return {
-            statusCode: 400,
-            headers: { ...CORS_HEADERS },
-            body: JSON.stringify({
-                response:
-                    `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message} ${alreadyHear}`,
-            }),
-        };
+            })
+    //     }
+    // } catch (error) {
+    //     return {
+    //         statusCode: 400,
+    //         headers: { ...CORS_HEADERS },
+    //         body: JSON.stringify({
+    //             response:
+    //                 `Sorry something went wrong with this search. Could you be more specific, please.${error.name} ${error.message} ${alreadyHear}`,
+    //         }),
+    //     };
     }
-};
+}
