@@ -40,9 +40,8 @@ export const handler = async (event) => {
     });
  let alreadyHear = 'pass by'
     try {
-        const response = await chain.call({
-            message: message,
-        });
+        const response = await chain.run(message
+        );
         alreadyHear=response.toString();
         return {
             statusCode: 200,

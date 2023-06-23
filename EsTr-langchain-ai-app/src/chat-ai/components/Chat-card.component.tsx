@@ -55,9 +55,10 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         try {
         const data = await fetch(`/.netlify/functions/templateCall?parameter=${message}`);
         const { response } = await data.json();
+
         setResponseMessage((prevValue) => [...prevValue, message]);
         setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, response.text]);
+        setResponseMessage((prevValue) => [...prevValue, response]);
         setIsloading(false);
         return } catch (error){
             setResponseMessage((prevValue) => [...prevValue, message]);
