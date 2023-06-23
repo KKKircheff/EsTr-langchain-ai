@@ -20,6 +20,7 @@ export const handler = async (event) => {
   const keyBrave = process.env.VITE_BRAVE_API;
 //   const keySERP = process.env.VITE_SERP_API
 
+console.log('after keys:')
 
   const model = new ChatOpenAI({
     openAIApiKey: keyOpenAPI,
@@ -27,30 +28,32 @@ export const handler = async (event) => {
     temperature: 0,
     verbose: true,
   });
-
-  const tools = [
-    new BraveSearch({
-      apiKey: keyBrave,
-    }),
-    // new SerpAPI(keySERP,{
-    //     hl:'en',
-    // }),
-    new Calculator(),
-  ];
-
-//   const agent = ChatAgent.fromLLMAndTools(model, tools);
-
-//   const executor = AgentExecutor.fromAgentAndTools({
-//     agent: agent,
-//     tools: tools,
-//     verbose: true,
-//   });
-
-const executor = await initializeAgentExecutorWithOptions(tools, model, {
-    agentType: "chat-zero-shot-react-description",
-    verbose: true,
-  });
-
+ console.log('after model:')
+ const tools = [
+     new BraveSearch({
+         apiKey: keyBrave,
+        }),
+        // new SerpAPI(keySERP,{
+            //     hl:'en',
+            // }),
+            new Calculator(),
+        ];
+        console.log('after tools:')
+        
+        //   const agent = ChatAgent.fromLLMAndTools(model, tools);
+        
+        //   const executor = AgentExecutor.fromAgentAndTools({
+            //     agent: agent,
+            //     tools: tools,
+            //     verbose: true,
+            //   });
+            
+            const executor = await initializeAgentExecutorWithOptions(tools, model, {
+                agentType: "chat-zero-shot-react-description",
+                verbose: true,
+            });
+            
+            console.log('after executor:')
   try {
     const response = await executor.call({input:message});
     console.log('backend:', response)
