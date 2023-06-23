@@ -3,11 +3,11 @@ import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
 
-// const CORS_HEADERS = {
-//     'Access-Control-Allow-Origin': '*',
-//     'Access-Control-Allow-Headers':
-//         'Origin, X-Requested-With, Content-Type, Accept',
-// };
+const CORS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+        'Origin, X-Requested-With, Content-Type, Accept',
+};
 
 type ChatCardProps = {
     message: string;
@@ -29,7 +29,10 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const simpleCall = async (message: string) => {
         if (!message) return
         try {
-             const data = await fetch(`/.netlify/functions/simpleCall?parameter=${message}`);
+             const data = await fetch(`/.netlify/functions/simpleCall?parameter=${message}`,{
+                method: 'GET',
+                headers: { ...CORS_HEADERS },
+             });
              const { response } = await data.json()
              const responseFromAPI = response.text ? response.text :response.output;
              setResponseMessage((prevValue) => [...prevValue, message]);
