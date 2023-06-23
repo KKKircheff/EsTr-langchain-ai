@@ -3,11 +3,11 @@ import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
 
-const CORS_HEADERS = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers':
-        'Origin, X-Requested-With, Content-Type, Accept',
-};
+// const CORS_HEADERS = {
+//     'Access-Control-Allow-Origin': '*',
+//     'Access-Control-Allow-Headers':
+//         'Origin, X-Requested-With, Content-Type, Accept',
+// };
 
 type ChatCardProps = {
     message: string;
