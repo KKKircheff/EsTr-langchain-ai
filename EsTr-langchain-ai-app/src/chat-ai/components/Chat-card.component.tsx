@@ -34,6 +34,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                 headers: { ...CORS_HEADERS },
              });
              const { response } = await data.json()
+             console.log('!!!!', response)
              const responseFromAPI = response.text ? response.text :response.output;
              setResponseMessage((prevValue) => [...prevValue, message]);
              setMessage('');

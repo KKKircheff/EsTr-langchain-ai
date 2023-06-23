@@ -38,7 +38,7 @@ export const handler = async (event) => {
         llm: model,
         prompt: templatePrompt,
     });
-
+ const alreadyHear = 'pass by'
     try {
         const response = await chain.call({
             message: message,
@@ -56,7 +56,7 @@ export const handler = async (event) => {
             headers: { ...CORS_HEADERS },
             body: JSON.stringify({
                 response:
-                    'Sorry something went wrong with this search. Could you be more specific, please.',
+                    `Sorry something went wrong with this search. Could you be more specific, please.${alreadyHear}`,
             }),
         };
     }
