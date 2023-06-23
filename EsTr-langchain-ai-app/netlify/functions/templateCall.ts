@@ -14,9 +14,9 @@ const CORS_HEADERS = {
 
 export const handler = async (event) => {
 
+    const message = event.queryStringParameters.parameter;
     const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
 
-    const { message } = JSON.parse(event.body);
 
     const model = new ChatOpenAI({
         openAIApiKey: keyOpenAPI,

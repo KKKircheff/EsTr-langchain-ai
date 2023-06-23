@@ -1,6 +1,6 @@
 // import { OpenAI } from 'langchain';
-import { SerpAPI } from 'langchain/tools';
-// import { BraveSearch } from 'langchain/tools';
+// import { SerpAPI } from 'langchain/tools';
+import { BraveSearch } from 'langchain/tools';
 
 import { Calculator } from 'langchain/tools/calculator';
 // import { ChatAgent, AgentExecutor } from 'langchain/agents';
@@ -14,11 +14,12 @@ const CORS_HEADERS = {
 };
 
 export const handler = async (event) => {
-  const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
-//   const keyBrave = process.env.VITE_BRAVE_API;
-  const keySERP = process.env.VITE_SERP_API
 
-  const { message } = JSON.parse(event.body);
+  const message = event.queryStringParameters.parameter;
+  const keyOpenAPI = process.env.VITE_OPENAI_API_KEY;
+  const keyBrave = process.env.VITE_BRAVE_API;
+//   const keySERP = process.env.VITE_SERP_API
+
 
   const model = new ChatOpenAI({
     openAIApiKey: keyOpenAPI,
@@ -28,29 +29,31 @@ export const handler = async (event) => {
   });
 
   const tools = [
-    // new BraveSearch({
-    //   apiKey: keyBrave,
-    // }),
-    new SerpAPI(keySERP,{
-        hl:'en',
+    new BraveSearch({
+      apiKey: keyBrave,
     }),
+    // new SerpAPI(keySERP,{
+    //     hl:'en',
+    // }),
     new Calculator(),
   ];
 
 //   const agent = ChatAgent.fromLLMAndTools(model, tools);
-
-  const executor = await initializeAgentExecutorWithOptions(tools, model, {
-    agentType: "chat-zero-shot-react-description",
-    verbose: true,
-  });
 
 //   const executor = AgentExecutor.fromAgentAndTools({
 //     agent: agent,
 //     tools: tools,
 //     verbose: true,
 //   });
+
+const executor = await initializeAgentExecutorWithOptions(tools, model, {
+    agentType: "chat-zero-shot-react-description",
+    verbose: true,
+  });
+
   try {
     const response = await executor.call({input:message});
+    console.log('backend:', response)
     return {
       statusCode: 200,
       headers: { ...CORS_HEADERS },

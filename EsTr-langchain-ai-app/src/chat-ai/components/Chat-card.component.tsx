@@ -27,16 +27,14 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     // inputRef.current?.focus();
 
     const simpleCall = async (message: string) => {
+        if (!message) return
         try {
-            const res = await fetch('/.netlify/functions/simpleCall', {
-                method: "POST",
-                headers: { ...CORS_HEADERS },
-                body: JSON.stringify({ message })
-            });
-             const { response } = await res.json()
+             const data = await fetch(`/.netlify/functions/simpleCall?parameter=${message}`);
+             const { response } = await data.json()
+             const responseFromAPI = response.text ? response.text :response.output;
              setResponseMessage((prevValue) => [...prevValue, message]);
              setMessage('');
-             setResponseMessage((prevValue) => [...prevValue, response.output])
+             setResponseMessage((prevValue) => [...prevValue, responseFromAPI])
              setIsloading(false);
              return
         } catch (error) {
@@ -49,18 +47,14 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     }
 
     const templateCall = async (message: string) => {
+        if (!message) return
+        console.log('in:', message)
         try {
-        const res = await fetch('/.netlify/functions/templateCall', {
-            method: "POST",
-            headers: { ...CORS_HEADERS },
-            body: JSON.stringify({ message })
-        });
-        const { response } = await res.json();
-    
+        const data = await fetch(`/.netlify/functions/templateCall?parameter=${message}`);
+        const { response } = await data.json();
         setResponseMessage((prevValue) => [...prevValue, message]);
-        const responseFromAPI = response;
         setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, responseFromAPI.text]);
+        setResponseMessage((prevValue) => [...prevValue, response.text]);
         setIsloading(false);
         return } catch (error){
             setResponseMessage((prevValue) => [...prevValue, message]);
