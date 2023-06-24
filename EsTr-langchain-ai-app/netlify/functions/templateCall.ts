@@ -39,7 +39,8 @@ export const handler = async (event) => {
     //     prompt: templatePrompt,
     // });
     try {
-        const response = await model.call(message);
+        const asyncResponse = async()=> await model.call(message);
+        const response = await asyncResponse();
         return {
             statusCode: 200,
             headers: { ...CORS_HEADERS },
