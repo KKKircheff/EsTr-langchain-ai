@@ -1,4 +1,3 @@
-// import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { OpenAI } from "langchain";
 // import { LLMChain } from 'langchain/chains';
 // import {
@@ -39,8 +38,7 @@ export const handler = async (event) => {
     //     prompt: templatePrompt,
     // });
     try {
-        const asyncResponse = async()=> await model.call(message);
-        const response = await asyncResponse();
+        const response = await model.call(message);
         return {
             statusCode: 200,
             headers: { ...CORS_HEADERS },
