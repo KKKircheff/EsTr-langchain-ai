@@ -1,6 +1,8 @@
 module.exports = {
   root: true,
-  env: {browser:true,es2020: true,node: true,
+  env: {
+    es6: true,
+    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -12,7 +14,6 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 'latest',
     project: ["tsconfig.json", "tsconfig.dev.json"],
     sourceType: "module",
   },
@@ -24,8 +25,8 @@ module.exports = {
     "import",
   ],
   rules: {
-    // "quotes": ["error", "double"],
-    // "import/no-unresolved": 0,
-    // "indent": ["error", 2],
+    "quotes": ["error", "double"],
+    "import/no-unresolved": 0,
+    "indent": ["error", 2],
   },
 };

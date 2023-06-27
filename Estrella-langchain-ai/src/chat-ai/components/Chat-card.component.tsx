@@ -2,19 +2,12 @@ import { useRef, useState } from "react";
 import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
-import { initializeApp } from 'firebase/app';
-import { getFunctions } from "firebase/functions";
-
 
 const CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers':
-    'Origin, X-Requested-With, Content-Type, Accept',
+        'Origin, X-Requested-With, Content-Type, Accept',
 };
-
-const app = initializeApp();
-const functions = getFunctions(app);
-
 
 type ChatCardProps = {
     message: string;
