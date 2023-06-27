@@ -3,12 +3,6 @@ import ResponseField from "./Response-field.component"
 import { BsSend } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl'
 
-const CORS_HEADERS = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers':
-        'Origin, X-Requested-With, Content-Type, Accept',
-};
-
 type ChatCardProps = {
     message: string;
     responseMessage: string[];
@@ -29,12 +23,10 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const simpleCall = async (message: string) => {
         if (!message) return
         try {
-             const data = await fetch(`/.netlify/functions/simpleCall?parameter=${message}`,{
+             const data = await fetch(`https://europe-west1-aisberg-ai1.cloudfunctions.net/simpleCall?message=${message}`,{
                 method: 'GET',
-                headers: { ...CORS_HEADERS },
              });
              const { response } = await data.json()
-             console.log('!!!!', response)
              const responseFromAPI = response.text ? response.text :response.output;
              setResponseMessage((prevValue) => [...prevValue, message]);
              setMessage('');
@@ -53,12 +45,15 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const templateCall = async (message: string) => {
         if (!message) return
         try {
-        const data = await fetch(`/.netlify/functions/templateCall?parameter=${message}`);
+        const data = await fetch(`https://europe-west1-aisberg-ai1.cloudfunctions.net/templateCall?message=${message}`,{
+            method: 'GET',
+         });
+
         const { response } = await data.json();
 
         setResponseMessage((prevValue) => [...prevValue, message]);
         setMessage('');
-        setResponseMessage((prevValue) => [...prevValue, response]);
+        setResponseMessage((prevValue) => [...prevValue, response.text]);
         setIsloading(false);
         return } catch (error){
             setResponseMessage((prevValue) => [...prevValue, message]);
