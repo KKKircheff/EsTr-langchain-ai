@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm i -g pnpm@latest
-      - run: pnpm i
-      - run: pnpm build
+      - run: cd Estrella-langchain-ai pnpm i
+      - run: cd Estrella-langchain-ai pnpm build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
