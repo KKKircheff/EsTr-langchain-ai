@@ -21,3 +21,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_AISBERG_AI1 }}'
           channelId: live
           projectId: aisberg-ai1
+          entryPoint: 'Estrella-langchain-ai/firebase.json'
