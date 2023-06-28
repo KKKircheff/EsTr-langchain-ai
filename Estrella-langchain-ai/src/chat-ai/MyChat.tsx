@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import bgSpiralImg from '../assets/spiral.jpg'
-import Intro from './components/Intro.component'
-import ChatCard from './components/Chat-card.component'
-import ChatBaloon from './components/Chat-baloon.component'
+import Intro from './components/Intro.component.tsx'
+import ChatCard from './components/Chat-card.component.tsx'
+import ChatBaloon from './components/Chat-baloon.component.tsx'
 
 const MyChat = () => {
     const [isChatActive, setIsChatActive] = useState(false);
