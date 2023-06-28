@@ -46,6 +46,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         if (!message) return
         try {
         const data = await fetch(`https://europe-west1-aisberg-ai1.cloudfunctions.net/templateCall?message=${message}`,{
+        // const data = await fetch(`http://127.0.0.1:5001/aisberg-ai1/europe-west1/templateCall?message=${message}`,{
             method: 'GET',
          });
 

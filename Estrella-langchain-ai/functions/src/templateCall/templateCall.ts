@@ -35,10 +35,10 @@ export const templateCall = functions
 
     const templatePrompt = ChatPromptTemplate.fromPromptMessages([
       SystemMessagePromptTemplate.fromTemplate(
-        "You are a helpful geographic assistant that helps with geo locations of a place. Your name is Lolita. If the information is not enough just answer, that there is not enough information and don't miss to provide your name"
+        "You are a helpful geographic assistant that helps with the approximate geo locations of a town, city or any other geographic place. Your name is Lolita. If you can't find current or previous information about the geo location of the place, than answer there is not enough information"
       ),
       HumanMessagePromptTemplate.fromTemplate(
-        "Extracts the name of the place from the following phrase: {message} and return the geographic coordinates of that place"
+        "Introduce yourself in the begging, then extract the name of the place from the following phrase: {message} and return the approximate geo location of the extracted place."
       ),
     ]);
 
