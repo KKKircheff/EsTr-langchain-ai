@@ -34,7 +34,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
              setIsloading(false);
              return
         } catch (error) {
-            const response = `I can't find relible sources for this question. Could you try to rephrase it? ${error}`
+            const response = `I can't find relible sources for this question. Could you try to rephrase it please? ${error}`
             setResponseMessage((prevValue) => [...prevValue, message]);
             setMessage('');
             setResponseMessage((prevValue) => [...prevValue, response])
