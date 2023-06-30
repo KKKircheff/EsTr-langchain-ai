@@ -2,8 +2,8 @@ import * as functions from "firebase-functions";
 import {getStorage, ref, getDownloadURL} from "firebase/storage";
 import {initializeApp} from "firebase/app";
 import * as fs from "fs";
-import * as os from 'os';
-import * as path from 'path';
+import * as os from "os";
+import * as path from "path";
 
 import {FaissStore} from "langchain/vectorstores/faiss";
 import {OpenAIEmbeddings} from "langchain/embeddings/openai";
@@ -54,8 +54,8 @@ export const vectorCall = functions
           const downloadURL = await getDownloadURL(fileRef);
           const response = await fetch(downloadURL);
           const fileData = await response.arrayBuffer();
-          const tempFilePath = path.join(os.tmpdir(),fileName);
-        //   const filePath = `${localFolderPath}${fileName}`;
+          const tempFilePath = path.join(os.tmpdir(), fileName);
+          //   const filePath = `${localFolderPath}${fileName}`;
           fs.writeFileSync(tempFilePath, Buffer.from(fileData));
           console.log(`File ${fileName} downloaded and saved.`);
         };
