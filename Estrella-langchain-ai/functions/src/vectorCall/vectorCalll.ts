@@ -2,11 +2,19 @@ import * as functions from "firebase-functions";
 import {getStorage, ref, getDownloadURL} from "firebase/storage";
 import {initializeApp} from "firebase/app";
 import * as fs from "fs";
+import * as os from 'os';
+import * as path from 'path';
 
 import {FaissStore} from "langchain/vectorstores/faiss";
 import {OpenAIEmbeddings} from "langchain/embeddings/openai";
 import {ChatOpenAI} from "langchain/chat_models/openai";
 import {RetrievalQAChain, loadQAStuffChain} from "langchain/chains";
+
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept",
+};
 
 export const vectorCall = functions
   .region("europe-west1")
@@ -20,15 +28,9 @@ export const vectorCall = functions
         });
         return;
       }
-      const CORS_HEADERS = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
-      };
 
       const pdfName = "VisionPro";
       const storagePath = `${pdfName}_vectors/`;
-      const localFolderPath = "./tmp/";
       const filesToDownload = ["docstore.json", "faiss.index"];
 
       const FIREBASE_KEY = process.env.VITE_FIREBASE_KEY;
@@ -52,15 +54,11 @@ export const vectorCall = functions
           const downloadURL = await getDownloadURL(fileRef);
           const response = await fetch(downloadURL);
           const fileData = await response.arrayBuffer();
-          const filePath = `${localFolderPath}${fileName}`;
-          fs.writeFileSync(filePath, Buffer.from(fileData));
+          const tempFilePath = path.join(os.tmpdir(),fileName);
+        //   const filePath = `${localFolderPath}${fileName}`;
+          fs.writeFileSync(tempFilePath, Buffer.from(fileData));
           console.log(`File ${fileName} downloaded and saved.`);
         };
-
-        if (!fs.existsSync(localFolderPath)) {
-          fs.mkdirSync(localFolderPath);
-          console.log("Local folder created:", localFolderPath);
-        }
 
         for (const fileName of filesToDownload) {
           await downloadAndSaveFile(fileName);
@@ -97,6 +95,9 @@ export const vectorCall = functions
       } catch (error) {
         console.error("Error:", error);
         res.set(CORS_HEADERS);
-        res.status(500).send("Error occurred.");
+        res.status(500).json({
+          response: `Sorry, something went wrong with this search.
+          I tried hard but could not find a proper result. ${error}`,
+        });
       }
     });
