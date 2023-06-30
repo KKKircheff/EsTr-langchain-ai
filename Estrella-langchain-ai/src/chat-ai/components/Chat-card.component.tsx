@@ -20,6 +20,29 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const inputRef = useRef<HTMLInputElement | null>(null);
     // inputRef.current?.focus();
 
+    
+    const vectorCall = async (message: string) => {
+        if (!message) return
+        try {
+             const data = await fetch(`http://127.0.0.1:5001/aisberg-ai1/europe-west1/vectorCall?message=${message}`,{
+                method: 'GET',
+             });
+             const { response } = await data.json()
+             console.log(response);
+             setResponseMessage((prevValue) => [...prevValue, message]);
+             setMessage('');
+             setResponseMessage((prevValue) => [...prevValue, response])
+             setIsloading(false);
+             return
+        } catch (error) {
+            const response = `I can't find relible sources for this question. Could you try to rephrase it please? ${error}`
+            setResponseMessage((prevValue) => [...prevValue, message]);
+            setMessage('');
+            setResponseMessage((prevValue) => [...prevValue, response])
+            setIsloading(false);
+        } 
+    }
+    
     const simpleCall = async (message: string) => {
         if (!message) return
         try {
@@ -84,7 +107,8 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
             return
         }
 
-        await templateCall(message);
+        // await templateCall(message);
+        await vectorCall(message);
 
     }
 
