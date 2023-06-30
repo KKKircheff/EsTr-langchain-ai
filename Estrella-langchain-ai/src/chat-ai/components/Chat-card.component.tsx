@@ -24,7 +24,8 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const vectorCall = async (message: string) => {
         if (!message) return
         try {
-             const data = await fetch(`http://127.0.0.1:5001/aisberg-ai1/europe-west1/vectorCall?message=${message}`,{
+            //  const data = await fetch(`http://127.0.0.1:5001/aisberg-ai1/europe-west1/vectorCall?message=${message}`,{
+             const data = await fetch(`https://europe-west1-aisberg-ai1.cloudfunctions.net/vectorCall?message=${message}`,{
                 method: 'GET',
              });
              const { response } = await data.json()
