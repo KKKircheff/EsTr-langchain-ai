@@ -107,6 +107,10 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
             await simpleCall(message.slice(3));
             return
         }
+        if (message.slice(0, 3) === '???') {
+            await templateCall(message.slice(3));
+            return
+        }
 
         // await templateCall(message);
         await vectorCall(message);
