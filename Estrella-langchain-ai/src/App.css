@@ -1,6 +1,8 @@
 #root {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  background-color: black;
 }
 
 .main-animation {
@@ -294,3 +296,4 @@
                  animate-svg-fill-5 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 1.2000000000000002s both;
   }
   
+ 

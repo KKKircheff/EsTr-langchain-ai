@@ -141,10 +141,10 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                          -mt-[45vw]
                          transition-all 
                          duration-300 
-                         ${isChatActive ? 'ml-[calc(100vw_-_300px)] sm:ml-[calc(100vw_-_320px)]' : 'ml-[101vw]'}`
+                         ${isChatActive ? 'ml-[calc(100vw_-_300px)] sm:ml-[calc(100vw_-_320px)] md:sm:ml-[calc(100vw_-_620px)]' : 'ml-[101vw]'}`
         }>
             <div data-theme='dark'
-                className='card card-bordered border-gray-600 w-[290px] py-2 mb-6 text-gray-200 items-center'>
+                className='card card-bordered border-gray-600 w-[290px] md:w-[600px] py-2 mb-6 text-gray-200 items-center'>
                 {responseMessage.length
                     ? null
                     : <div className="card-body -ml-5 py-2 items-start">

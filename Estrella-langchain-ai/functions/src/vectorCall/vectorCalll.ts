@@ -55,7 +55,6 @@ export const vectorCall = functions
           const response = await fetch(downloadURL);
           const fileData = await response.arrayBuffer();
           const tempFilePath = path.join(os.tmpdir(), fileName);
-          //   const filePath = `${localFolderPath}${fileName}`;
           fs.writeFileSync(tempFilePath, Buffer.from(fileData));
           console.log(`File ${fileName} downloaded and saved.`);
         };
