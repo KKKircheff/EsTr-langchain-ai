@@ -14,7 +14,7 @@ const ResponseField = ({ responseMessage, isFocused}: ResponseProps) => {
     }, [responseMessage,isFocused]);
 
     return (
-        <div className='w-[230px] max-h-[80vh] -ml-5 mt-1'>
+        <div className='w-[230px] max-h-[80vh] -ml-5 mt-1 md:w-[500px] md:-ml-7'>
             {responseMessage.length
                 ? <div className={`card ${isFocused ? 'max-h-32':'max-h-96'} md:max-h-[70vh] overflow-y-scroll card-bordered border-gray-600 my-2 text-gray-200 items-start rounded-md`}>
                     <div className="card-body text-[.8rem] mx-0 p-2">

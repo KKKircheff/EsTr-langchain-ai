@@ -1,19 +1,23 @@
-import { TfiCommentsSmiley } from 'react-icons/tfi'
+import { BsChatDots } from 'react-icons/bs'
 
 type ChatBaloonProps = {
-    isChatActive:boolean;
-    setIsChatActive:React.Dispatch<React.SetStateAction<boolean>>;
+    isChatActive: boolean;
+    setIsChatActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChatBaloon = ({isChatActive,setIsChatActive}:ChatBaloonProps) => {
+const ChatBaloon = ({ isChatActive, setIsChatActive }: ChatBaloonProps) => {
     const handleChat = () => {
         setIsChatActive(!isChatActive);
     }
 
     return (
-        <div className={`button-container absolute bottom-10 right-10  ${isChatActive ? 'hidden' : 'block'}`}>
-            <button onClick={handleChat} className='btn btn-outline btn-circle btn-md text-[1.5rem] animate-bounce text-amber-100 bg-transparent border-amber-200 hover:border-amber-200 hover:bg-amber-200 hover:text-orange-400 border-[2px] pr-[2px] pt-[2px]'>
-                <TfiCommentsSmiley />
+        <div className={`button-container fixed bottom-[40px] right-6 ${isChatActive ? 'hidden' : 'block'}`}>
+            <button onClick={handleChat} className='btn btn-sm w-[120px] py-1 px-1 my-0 bg-black bg-opacity-50 border-lime-500 text-[4.5rem] animate-bounce text-lime-500 hover:bg-black hover:opacity-80 hover:text-lime-400 hover:border-lime-400'>
+                <div className='flex flex-row justify-around text-[.7rem] p-0 m-0 leading-3'>
+                    <p className='mx-1 mt-1'>AI assistant </p>
+                    <p className='mx-1 mt-0 text-lg'><BsChatDots /></p>
+                </div>
+
             </button>
         </div>
     )

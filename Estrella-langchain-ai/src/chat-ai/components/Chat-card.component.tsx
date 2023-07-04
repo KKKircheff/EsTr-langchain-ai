@@ -20,6 +20,30 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
     const inputRef = useRef<HTMLInputElement | null>(null);
     // inputRef.current?.focus();
 
+    
+    const vectorCall = async (message: string) => {
+        if (!message) return
+        try {
+            //  const data = await fetch(`http://127.0.0.1:5001/aisberg-ai1/europe-west1/vectorCall?message=${message}`,{
+             const data = await fetch(`https://europe-west1-aisberg-ai1.cloudfunctions.net/vectorCall?message=${message}`,{
+                method: 'GET',
+             });
+             const { response } = await data.json()
+             console.log(response);
+             setResponseMessage((prevValue) => [...prevValue, message]);
+             setMessage('');
+             setResponseMessage((prevValue) => [...prevValue, response])
+             setIsloading(false);
+             return
+        } catch (error) {
+            const response = `I can't find relible sources for this question. Could you try to rephrase it please? ${error}`
+            setResponseMessage((prevValue) => [...prevValue, message]);
+            setMessage('');
+            setResponseMessage((prevValue) => [...prevValue, response])
+            setIsloading(false);
+        } 
+    }
+    
     const simpleCall = async (message: string) => {
         if (!message) return
         try {
@@ -46,6 +70,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
         if (!message) return
         try {
         const data = await fetch(`https://europe-west1-aisberg-ai1.cloudfunctions.net/templateCall?message=${message}`,{
+        // const data = await fetch(`http://127.0.0.1:5001/aisberg-ai1/europe-west1/templateCall?message=${message}`,{
             method: 'GET',
          });
 
@@ -82,8 +107,13 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
             await simpleCall(message.slice(3));
             return
         }
+        if (message.slice(0, 3) === '???') {
+            await templateCall(message.slice(3));
+            return
+        }
 
-        await templateCall(message);
+        // await templateCall(message);
+        await vectorCall(message);
 
     }
 
@@ -111,14 +141,14 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                          -mt-[45vw]
                          transition-all 
                          duration-300 
-                         ${isChatActive ? 'ml-[calc(100vw_-_300px)] sm:ml-[calc(100vw_-_320px)]' : 'ml-[101vw]'}`
+                         ${isChatActive ? 'ml-[calc(100vw_-_300px)] sm:ml-[calc(100vw_-_320px)] md:sm:ml-[calc(100vw_-_620px)]' : 'ml-[101vw]'}`
         }>
             <div data-theme='dark'
-                className='card card-bordered border-gray-600 w-[290px] py-2 mb-6 text-gray-200 items-center'>
+                className='card card-bordered border-gray-600 w-[290px] md:w-[600px] py-2 mb-6 text-gray-200 items-center'>
                 {responseMessage.length
                     ? null
                     : <div className="card-body -ml-5 py-2 items-start">
-                        <p className='text-[.8rem] sm:text-[.8rem] pb-1'>Langchain & OpenAI & Estrella Toro</p>
+                        <p className='text-[.8rem] sm:text-[.8rem] pb-1'>AI assistant</p>
                     </div>}
 
                 <ResponseField responseMessage={responseMessage} isFocused={isFocused} />

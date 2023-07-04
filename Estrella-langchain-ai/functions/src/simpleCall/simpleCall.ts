@@ -5,11 +5,11 @@ import {SerpAPI} from "langchain/tools";
 import {Calculator} from "langchain/tools/calculator";
 import {initializeAgentExecutorWithOptions} from "langchain/agents";
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "Origin, X-Requested-With, Content-Type, Accept",
-};
+// const CORS_HEADERS = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Headers":
+//     "Origin, X-Requested-With, Content-Type, Accept",
+// };
 
 export const simpleCall = functions
   .region("europe-west1")
@@ -52,10 +52,10 @@ export const simpleCall = functions
 
     try {
       const response = await executor.call({input});
-      res.set(CORS_HEADERS);
+      //   res.set(CORS_HEADERS);
       res.status(200).json({response});
     } catch (error) {
-      res.set(CORS_HEADERS);
+    //   res.set(CORS_HEADERS);
       res.status(400).json({
         response: `Sorry, something went wrong with this search.
       I tried hard but could not find a proper result. ${error}`,

@@ -1,19 +1,20 @@
 
-const Intro = () => {
+const IntroText = () => {
     return (
-            <div className='main-animation top10'>
+            <div className='main-animation flex items-center justify-center h-[30vh] md:h-[75vh]'>
                 <svg
                     version='1.1'
                     id='Layer_1'
                     xmlns='http://www.w3.org/2000/svg'
                     xmlnsXlink='http://www.w3.org/1999/xlink'
-                    // x='200px'
+                    // x='000px'
                     // y='0px'
                     // viewBox='0 0 566.9 850.4'
                     // enableBackground='new 0 0 566.9 850.4'
                     // xmlSpace='preserve'
                     width='400'
-                    height='350'
+                    height='550'
+                    className="w-[400px] scale-75 lg:scale-100 2xl:scale-150"
                 >
                     <path
                         className='st0 toro-1'
@@ -43,7 +44,7 @@ c0-5.3,1.9-9.6,5.7-12.8c3.8-3.2,8.7-4.9,14.6-4.9h11.3c6,0,10.9,1.6,14.6,4.9C315.
 M310.1,270.9c0-3.5-1.2-6.4-3.7-8.6c-2.5-2.2-5.7-3.3-9.6-3.3h-11.3c-3.9,0-7,1.1-9.5,3.3c-2.5,2.2-3.7,5.1-3.7,8.6
 c0,3.5,1.2,6.3,3.7,8.4c2.5,2.2,5.7,3.2,9.5,3.2h11.3c3.9,0,7.1-1.1,9.6-3.2C308.9,277.2,310.1,274.3,310.1,270.9z'
                     ></path>
-                    <path
+                    {/* <path
                         className='st1 toro-3'
                         d='M177.4,131.7c0.1,7.3-0.3,15,0,22.2c0.2,6.2,4.3,6.6,11.6,10.9c2.7,1.6,27.8,16.2,28.3,16.3
 c0.9,0.1,29.9-17,35.4-20.1c3-1.7,4.6-2.7,4.8-6.7c0.4-7.2,0-15.3,0-22.6l25.2-14.4c4-2.3,10.5-5.2,11.2-8.3
@@ -57,10 +58,10 @@ l0-26.4c-2.1-0.8-4.9-2.6-7.1-3.9c-2.6-1.5-4.6-2.7-7.3-4.2c-5.2-2.9-41.8-24.6-43.
                     <path
                         className='st1 toro-5'
                         d='M309.2,62.8l-71.1,40.8c-0.2-5.9,0-11.8-0.1-17.7c-0.1-5,2.1-4.8,9.3-9l51-28.9L309.2,26L309.2,62.8z'
-                    ></path>
+                    ></path> */}
                 </svg>
                 {/* <img src={toro} alt="toro" className='animate-logoIn w-[50vw] mx-auto' /> */}
             </div>
     )
 }
-export default Intro
+export default IntroText
