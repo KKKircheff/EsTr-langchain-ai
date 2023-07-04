@@ -148,7 +148,7 @@ const ChatCard = ({ message, responseMessage, setMessage, setResponseMessage, is
                 {responseMessage.length
                     ? null
                     : <div className="card-body -ml-5 py-2 items-start">
-                        <p className='text-[.8rem] sm:text-[.8rem] pb-1'>Langchain & OpenAI & Estrella Toro</p>
+                        <p className='text-[.8rem] sm:text-[.8rem] pb-1'>AI assistant</p>
                     </div>}
 
                 <ResponseField responseMessage={responseMessage} isFocused={isFocused} />

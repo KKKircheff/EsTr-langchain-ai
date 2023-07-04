@@ -2,7 +2,11 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+        fontFamily: {
+            'poppins': ['Poppins', 'sans-serif']
+          },
+    },
   },
   purge: {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],

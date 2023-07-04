@@ -1,7 +1,7 @@
 
 const Intro = () => {
     return (
-            <div className='main-animation '>
+            <div className='main-animation top10'>
                 <svg
                     version='1.1'
                     id='Layer_1'
